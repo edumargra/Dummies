@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">MinDummy</string>
+    <string name="dock">Dock</string>
+    <string name="details">Details</string>
+    <string name="name">Name:</string>
+    <string name="opt1">opt1</string>
+    <string name="opt2">opt2</string>
+    <string name="opt3">opt3</string>
+    <string name="val1">val1</string>
+    <string name="val2">val2</string>
+    <string name="save">Save</string>
+</resources>
