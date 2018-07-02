@@ -39,8 +39,8 @@ public class DataFacade {
         this.things = things;
     }
 
-    public void addThing(String name, String val1, String val2, String val3, String val4){
-        Thing thing = new Thing(name, val1, val2, val3, val4);
+    public void addThing(String name, String val1, String val2, String val3, String val4,double lat, double lng){
+        Thing thing = new Thing(name, val1, val2, val3, val4, lat, lng);
         things.add(thing);
     }
 

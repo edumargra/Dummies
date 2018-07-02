@@ -16,4 +16,5 @@
     <string name="load">Load</string>
     <string name="map">Map</string>
     <string name="title_activity_map">Map</string>
+    <string name="coord">Coordinates:</string>
 </resources>

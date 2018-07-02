@@ -1,5 +1,7 @@
 package com.example.eduard.mindummy;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.io.Serializable;
 
 /**
@@ -12,14 +14,20 @@ public class Thing implements Serializable {
     private String val2;
     private String val3;
     private String val4;
+    private double lat;
+    private double lng;
 
-    public Thing(String name, String val1, String val2, String val3,String val4) {
+    public Thing(String name, String val1, String val2, String val3,String val4, double lat, double lng) {
         this.name = name;
         this.val1 = val1;
         this.val2 = val2;
         this.val3 = val3;
         this.val4 = val4;
+        this.lat = lat;
+        this.lng = lng;
     }
+
+
 
     public String getName() {
         return name;
@@ -59,5 +67,21 @@ public class Thing implements Serializable {
 
     public void setVal4(String val4) {
         this.val4 = val4;
+    }
+
+    public double getLat() {
+        return lat;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public double getLng() {
+        return lng;
+    }
+
+    public void setLng(double lng) {
+        this.lng = lng;
     }
 }

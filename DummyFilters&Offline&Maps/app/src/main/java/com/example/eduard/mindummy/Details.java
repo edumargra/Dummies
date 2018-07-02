@@ -18,6 +18,8 @@ public class Details extends AppCompatActivity {
     private EditText name;
     private EditText val1;
     private EditText val2;
+    private EditText lat;
+    private EditText lng;
     private RadioGroup options1;
     private RadioGroup options2;
     private DataFacade dataFacade;
@@ -41,6 +43,8 @@ public class Details extends AppCompatActivity {
         val2 = findViewById(R.id.editText_val2);
         options1 = findViewById(R.id.options1);
         options2 = findViewById(R.id.options2);
+        lat = findViewById(R.id.editText_lat);
+        lng = findViewById(R.id.editText_lng);
 
         Button button = findViewById(R.id.save);
         button.setOnClickListener(new View.OnClickListener() {
@@ -71,10 +75,10 @@ public class Details extends AppCompatActivity {
                     default:
                         val4 = "";
                 }
-                if (!val3.equals("") && !val4.equals("")) {
+                if (!val3.equals("") && !val4.equals("") && !lat.getText().toString().equals("") && !lng.getText().toString().equals("")) {
                     if(getIntent().hasExtra("id"))
                         dataFacade.delete(getIntent().getIntExtra("id",0));
-                    dataFacade.addThing(name.getText().toString(), val1.getText().toString(), val2.getText().toString(), val3,val4);
+                    dataFacade.addThing(name.getText().toString(), val1.getText().toString(), val2.getText().toString(), val3,val4, Double.parseDouble(lat.getText().toString()), Double.parseDouble(lng.getText().toString()));
                     ((Activity)view.getContext()).finish();
                 }else{
                     Toast.makeText(view.getContext(),"Select the options dummy",(int)5).show();
@@ -93,6 +97,8 @@ public class Details extends AppCompatActivity {
         name.setText(thing.getName());
         val1.setText(thing.getVal1());
         val2.setText(thing.getVal2());
+        lat.setText(Double.toString(thing.getLat()));
+        lng.setText(Double.toString(thing.getLng()));
         switch (thing.getVal3()){
             case "opt1":
                 options1.check(R.id.opt1);
