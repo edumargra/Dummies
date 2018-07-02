@@ -9,4 +9,8 @@
     <string name="val1">val1</string>
     <string name="val2">val2</string>
     <string name="save">Save</string>
+    <string name="opt4">opt4</string>
+    <string name="opt5">opt5</string>
+    <string name="all">All</string>
+    <string name="filter">Filter</string>
 </resources>

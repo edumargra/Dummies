@@ -51,4 +51,22 @@ public class DataFacade {
     public void delete(int id) {
         things.remove(id);
     }
+
+    public ArrayList<Thing> getThingsVal3(String option) {
+        ArrayList<Thing> things2 = new ArrayList<>();
+        for(Thing thing : things){
+            if(thing.getVal3().equals(option))
+                things2.add(thing);
+        }
+        return things2;
+    }
+
+    public ArrayList<Thing> getThingsVal4(String option) {
+        ArrayList<Thing> things2 = new ArrayList<>();
+        for(Thing thing : things){
+            if(thing.getVal4().equals(option))
+                things2.add(thing);
+        }
+        return things2;
+    }
 }

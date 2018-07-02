@@ -136,12 +136,12 @@
             android:id="@+id/opt4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/opt3" />
+            android:text="@string/opt4" />
         <RadioButton
             android:id="@+id/opt5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/opt3" />
+            android:text="@string/opt5" />
     </RadioGroup>
 
     <Button

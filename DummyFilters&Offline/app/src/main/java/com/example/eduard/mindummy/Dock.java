@@ -10,6 +10,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
+import android.widget.RadioGroup;
 
 public class Dock extends AppCompatActivity implements MyItemClickListener {
 
@@ -38,6 +40,32 @@ public class Dock extends AppCompatActivity implements MyItemClickListener {
             }
         });
 
+        final RadioGroup radioGroup = findViewById(R.id.options0);
+        Button button = findViewById(R.id.filter);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                switch (radioGroup.getCheckedRadioButtonId()){
+                    case R.id.opt01:
+                        adapter.updateList(dataFacade.getThingsVal3("opt1"));
+                        break;
+                    case R.id.opt02:
+                        adapter.updateList(dataFacade.getThingsVal3("opt2"));
+                        break;
+                    case R.id.opt03:
+                        adapter.updateList(dataFacade.getThingsVal3("opt3"));
+                        break;
+                    case R.id.opt04:
+                        adapter.updateList(dataFacade.getThingsVal4("opt4"));
+                        break;
+                    case R.id.opt05:
+                        adapter.updateList(dataFacade.getThingsVal4("opt5"));
+                        break;
+                    default:
+                        adapter.updateList(dataFacade.getThings());
+                }
+            }
+        });
     }
 
     public void buildRecycleView() {
