@@ -1,8 +1,16 @@
 package com.example.eduard.mindummy;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -12,6 +20,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Toast;
+
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
+
+import java.util.ArrayList;
+import java.util.concurrent.Executor;
 
 public class Details extends AppCompatActivity {
 
@@ -23,12 +38,17 @@ public class Details extends AppCompatActivity {
     private RadioGroup options1;
     private RadioGroup options2;
     private DataFacade dataFacade;
+
+    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
+    FusedLocationProviderClient fusedLocationProviderClient;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
 
         dataFacade = DataFacade.getInstance();
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
         //setting toolbar
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbarDetails);
@@ -52,11 +72,11 @@ public class Details extends AppCompatActivity {
             public void onClick(View view) {
                 String val3;
                 String val4;
-                switch (options1.getCheckedRadioButtonId()){
+                switch (options1.getCheckedRadioButtonId()) {
                     case R.id.opt1:
                         val3 = "opt1";
                         break;
-                    case  R.id.opt2:
+                    case R.id.opt2:
                         val3 = "opt2";
                         break;
                     case R.id.opt3:
@@ -65,7 +85,7 @@ public class Details extends AppCompatActivity {
                     default:
                         val3 = "";
                 }
-                switch (options2.getCheckedRadioButtonId()){
+                switch (options2.getCheckedRadioButtonId()) {
                     case R.id.opt4:
                         val4 = "opt4";
                         break;
@@ -75,10 +95,11 @@ public class Details extends AppCompatActivity {
                     default:
                         val4 = "";
                 }
-                if (!val3.equals("") && !val4.equals("") && !lat.getText().toString().equals("") && !lng.getText().toString().equals("")) {
-                    if(getIntent().hasExtra("id"))
-                        dataFacade.delete(getIntent().getIntExtra("id",0));
-                    dataFacade.addThing(name.getText().toString(), val1.getText().toString(), val2.getText().toString(), val3,val4, Double.parseDouble(lat.getText().toString()), Double.parseDouble(lng.getText().toString()));
+                float dist = distance(view);
+                if (!val3.equals("") && !val4.equals("") && !lat.getText().toString().equals("") && !lng.getText().toString().equals("") && dist != -1) {
+                    if (getIntent().hasExtra("id"))
+                        dataFacade.delete(getIntent().getIntExtra("id", 0));
+                    dataFacade.addThing(name.getText().toString(), val1.getText().toString(), val2.getText().toString(), val3,val4, Double.parseDouble(lat.getText().toString()), Double.parseDouble(lng.getText().toString()), dist);
                     ((Activity)view.getContext()).finish();
                 }else{
                     Toast.makeText(view.getContext(),"Select the options dummy",(int)5).show();
@@ -90,6 +111,56 @@ public class Details extends AppCompatActivity {
         if(intent.hasExtra("id"))
             fillFields(intent.getIntExtra("id",0));
 
+    }
+
+    private float distance(View view) {
+        LocationManager locationManager = (LocationManager) view.getContext().getSystemService(Context.LOCATION_SERVICE);
+
+        if (ActivityCompat.checkSelfPermission(view.getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            if (ActivityCompat.shouldShowRequestPermissionRationale((Details)view.getContext(),
+                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+                new AlertDialog.Builder(view.getContext())
+                        .setTitle("Location Permission Needed")
+                        .setMessage("This app needs the Location permission, please accept to use location functionality")
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                //Prompt the user once explanation has been shown
+                                ActivityCompat.requestPermissions(Details.this,
+                                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                                        MY_PERMISSIONS_REQUEST_LOCATION);
+                            }
+                        })
+                        .create()
+                        .show();
+            }
+        }
+        final float[] dist = new float[1];
+        fusedLocationProviderClient.getLastLocation()
+                .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        Location location1 = new Location("");
+                        location1.setLatitude(Double.parseDouble(lat.getText().toString()));
+                        location1.setLongitude(Double.parseDouble(lng.getText().toString()));
+                        dist[0] = location.distanceTo(location1);
+                        if (location != null) {
+                            dist[0] = -1;
+                        }
+                    }
+                });
+        return dist[0];
     }
 
     private void fillFields(int id) {

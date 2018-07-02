@@ -16,8 +16,9 @@ public class Thing implements Serializable {
     private String val4;
     private double lat;
     private double lng;
+    private float dist;
 
-    public Thing(String name, String val1, String val2, String val3,String val4, double lat, double lng) {
+    public Thing(String name, String val1, String val2, String val3,String val4, double lat, double lng, float dist) {
         this.name = name;
         this.val1 = val1;
         this.val2 = val2;
@@ -25,6 +26,7 @@ public class Thing implements Serializable {
         this.val4 = val4;
         this.lat = lat;
         this.lng = lng;
+        this.dist = dist;
     }
 
 

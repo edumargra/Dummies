@@ -28,7 +28,8 @@ dependencies {
     implementation 'com.android.support:design:26.1.0'
     //firebase and maps
     implementation 'com.google.android.gms:play-services-maps:15.0.1'
-
+    //current location
+    implementation 'com.google.android.gms:play-services-location:15.0.1'
     //test
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
