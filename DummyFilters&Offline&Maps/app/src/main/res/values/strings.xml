@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">MinDummy</string>
+    <string name="dock">Dock</string>
+    <string name="details">Details</string>
+    <string name="name">Name:</string>
+    <string name="opt1">opt1</string>
+    <string name="opt2">opt2</string>
+    <string name="opt3">opt3</string>
+    <string name="val1">val1</string>
+    <string name="val2">val2</string>
+    <string name="save">Save</string>
+    <string name="opt4">opt4</string>
+    <string name="opt5">opt5</string>
+    <string name="all">All</string>
+    <string name="filter">Filter</string>
+    <string name="load">Load</string>
+    <string name="map">Map</string>
+    <string name="title_activity_map">Map</string>
+</resources>
