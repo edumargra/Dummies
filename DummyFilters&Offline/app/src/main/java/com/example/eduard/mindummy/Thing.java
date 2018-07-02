@@ -1,10 +1,12 @@
 package com.example.eduard.mindummy;
 
+import java.io.Serializable;
+
 /**
  * Created by eduard on 28/06/18.
  */
 
-public class Thing {
+public class Thing implements Serializable {
     private String name;
     private String val1;
     private String val2;

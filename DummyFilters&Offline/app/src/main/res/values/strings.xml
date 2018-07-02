@@ -13,4 +13,5 @@
     <string name="opt5">opt5</string>
     <string name="all">All</string>
     <string name="filter">Filter</string>
+    <string name="load">Load</string>
 </resources>

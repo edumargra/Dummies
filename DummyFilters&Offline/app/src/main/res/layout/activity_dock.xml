@@ -81,15 +81,38 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/options0"/>
 
+    <Button
+        android:id="@+id/saveOff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/save"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/loadOff"
+        app:layout_constraintTop_toBottomOf="@+id/filter"
+        android:layout_marginLeft="8dp" />
+
+    <Button
+        android:id="@+id/loadOff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="@string/load"
+        app:layout_constraintEnd_toStartOf="@+id/saveOff"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/filter"
+        android:layout_marginRight="8dp" />
+
 
     <android.support.design.widget.CoordinatorLayout
         android:id="@+id/main_content"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/filter">
+        app:layout_constraintTop_toBottomOf="@+id/saveOff">
 
 
         <android.support.v7.widget.RecyclerView

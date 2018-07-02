@@ -77,7 +77,7 @@ public class Details extends AppCompatActivity {
                     dataFacade.addThing(name.getText().toString(), val1.getText().toString(), val2.getText().toString(), val3,val4);
                     ((Activity)view.getContext()).finish();
                 }else{
-                    Toast.makeText(view.getContext(),"Select the options dummy",(int)5);
+                    Toast.makeText(view.getContext(),"Select the options dummy",(int)5).show();
                 }
             }
         });

@@ -1,5 +1,6 @@
 package com.example.eduard.mindummy;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
@@ -12,6 +13,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioGroup;
+import android.widget.Toast;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 
 public class Dock extends AppCompatActivity implements MyItemClickListener {
 
@@ -63,6 +71,43 @@ public class Dock extends AppCompatActivity implements MyItemClickListener {
                         break;
                     default:
                         adapter.updateList(dataFacade.getThings());
+                }
+            }
+        });
+        Button save = findViewById(R.id.saveOff);
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String filename = "myfile";
+                FileOutputStream outputStream;
+                try {
+                    outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+                    ObjectOutputStream dout = new ObjectOutputStream(outputStream);
+                    dout.writeObject(dataFacade.getThings());
+                    dout.flush();
+                    outputStream.getFD().sync();
+                    outputStream.close();
+                } catch (Exception e) {
+                    Toast.makeText(view.getContext(),"Error while saving",(int)5).show();
+                }
+            }
+        });
+        Button load = findViewById(R.id.loadOff);
+        load.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String filename = "myfile";
+                FileInputStream inputStream;
+                try {
+                    inputStream = openFileInput(filename);
+                    ObjectInputStream din = new ObjectInputStream(inputStream);
+                    dataFacade.setThings((ArrayList<Thing>)din.readObject());
+                    din.close();
+                    //inputStream.getFD().sync();
+                    inputStream.close();
+                    adapter.updateList(dataFacade.getThings());
+                } catch (Exception e) {
+                    Toast.makeText(view.getContext(),"Error while loading",(int)5).show();
                 }
             }
         });
